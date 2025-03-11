@@ -137,6 +137,9 @@
   <ItemGroup>
     <ClCompile Include="CPP-Basic-Calculator.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\..\Learning_CPP_Tetris\SAOFont-Regular_v1.ttf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
