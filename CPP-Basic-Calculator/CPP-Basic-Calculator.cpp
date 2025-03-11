@@ -19,7 +19,6 @@ public:
         
         if (!font_type.openFromFile("Fonts/SAOUI-Regular.otf"))
             std::cerr << "Font not found.\n";
-        
     
         button.setPosition(sf::Vector2f(x_chord, y_chord));
         button.setSize(sf::Vector2f(button_width, button_height));
@@ -48,7 +47,9 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode({ Window_size_x, Window_size_y}), "Basic C++ Calculator");
 	sf::RectangleShape background({Window_size_x, Window_size_y});
+    sf::RectangleShape output_background({ Window_size_x, Window_size_y - (Window_size_y - 200) });
 	background.setFillColor(sf::Color(0x80, 0x80, 0x80));
+    output_background.setFillColor(sf::Color(0xA0, 0xA0, 0xA0));
     
     const int num_button_offset = 10;
     const float button_width = 100.0;
@@ -88,6 +89,7 @@ int main()
         }
 
         window.clear();
+
 		window.draw(background);
         button_sign.drawButton(window);
         button_zero.drawButton(window);
@@ -106,6 +108,13 @@ int main()
         button_add.drawButton(window);
         button_subtract.drawButton(window);
         button_equal.drawButton(window);
+        window.draw(output_background);
+
+
+
+
+
+
         window.display();
     }
 }
