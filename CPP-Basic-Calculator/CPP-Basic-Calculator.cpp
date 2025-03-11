@@ -1,5 +1,6 @@
 #include "SFML/Graphics.hpp"
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Window/Mouse.hpp>
 #include <iostream>
 
 const int Window_size_x = 450;
@@ -38,7 +39,7 @@ public:
     }
 
     bool isButtonClicked(sf::Vector2i cursorChords) {
-        return button.getGlobalBounds().contains(static_cast<sf::Vector2f>(cursorChords)); // return true if cursor is within the bounds of the button.
+        return button.getGlobalBounds().contains(cursorChords); // return true if cursor is within the bounds of the button.
     }
 
 };
@@ -47,7 +48,7 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode({ Window_size_x, Window_size_y}), "Basic C++ Calculator");
 	sf::RectangleShape background({Window_size_x, Window_size_y});
-    sf::RectangleShape output_background({ Window_size_x, Window_size_y - (Window_size_y - 200) });
+    sf::RectangleShape output_background({ Window_size_x, Window_size_y - (Window_size_y - 00) });
 	background.setFillColor(sf::Color(0x80, 0x80, 0x80));
     output_background.setFillColor(sf::Color(0xA0, 0xA0, 0xA0));
     
@@ -82,10 +83,22 @@ int main()
 
     while (window.isOpen())
     {
+        
+
         while (const std::optional event = window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
                 window.close();
+            
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+            {
+                sf::Vector2i position = sf::Mouse::getPosition();
+
+                if (button_one.isButtonClicked(position)) {
+                    std::cout << "ASSSSS";
+                }
+            }
+
         }
 
         window.clear();
