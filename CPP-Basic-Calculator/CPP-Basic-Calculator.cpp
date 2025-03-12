@@ -39,7 +39,7 @@ public:
     }
 
     bool isButtonClicked(sf::Vector2i cursorChords) {
-        return button.getGlobalBounds().contains(cursorChords); // return true if cursor is within the bounds of the button.
+        return button.getGlobalBounds().contains(static_cast<sf::Vector2f>(cursorChords)); // return true if cursor is within the bounds of the button.
     }
 
 };
@@ -93,7 +93,7 @@ int main()
             if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
             {
                 sf::Vector2i position = sf::Mouse::getPosition();
-                sf::Mouse::setPosition(sf::Vector2i(Window_size_x, Window_size_y), window);
+                sf::Mouse::setPosition(sf::Vector2i(position.x, position.y), window);
 
                 if (button_one.isButtonClicked(position)) {
                     std::cout << "ASSSSS";
@@ -124,12 +124,20 @@ int main()
         button_equal.drawButton(window);
         window.draw(output_background);
 
-
-
-
+        double testy = 0.0;
+        std::cout << testy << "\n";
 
 
         window.display();
     }
+
+    
+}
+
+double calculate() {
+
+    double result = 0.0;
+
+    return result;
 }
 
