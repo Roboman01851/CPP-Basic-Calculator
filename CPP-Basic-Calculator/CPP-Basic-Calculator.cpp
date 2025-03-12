@@ -93,6 +93,7 @@ int main()
             if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
             {
                 sf::Vector2i position = sf::Mouse::getPosition();
+                sf::Mouse::setPosition(sf::Vector2i(Window_size_x, Window_size_y), window);
 
                 if (button_one.isButtonClicked(position)) {
                     std::cout << "ASSSSS";
