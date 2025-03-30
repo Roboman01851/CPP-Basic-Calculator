@@ -6,6 +6,12 @@
 const int Window_size_x = 450;
 const int Window_size_y = 800;
 
+int firstNumber[8] = {-2,-2,-2,-2,-2,-2,-2,-2}; // -1 is decimal, -2 is blank
+unsigned int firstNumberDigitIndex = 0;
+bool firstNumDecFlag = false;
+
+double outputNumber = 0.0;
+
 class Button {
 private:
     sf::RectangleShape button;
@@ -44,6 +50,15 @@ public:
 
 };
 
+void print_array() {
+
+    std::cout << ""
+        << "{" << firstNumber[0] << "," << firstNumber[1] << "," << firstNumber[2] << ","
+        << firstNumber[3] << "," << firstNumber[4] << "," << firstNumber[5] << ","
+        << firstNumber[6] << "," << firstNumber[7] << "}\n";
+    return;
+}
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode({ Window_size_x, Window_size_y}), "Basic C++ Calculator");
@@ -64,6 +79,7 @@ int main()
     Button button_one(num_button_offset, Window_size_y - 220, button_width, button_height, "1", 50);
     Button button_two(num_button_offset * 2 + button_width, Window_size_y - 220, button_width, button_height, "2", 50);
     Button button_three(num_button_offset * 3 + button_width * 2, Window_size_y - 220, button_width, button_height, "3", 50);
+    Button button_clear(num_button_offset * 4 + button_width * 3, Window_size_y - 220, button_width, button_height, "CLEAR", 50);
 
     Button button_four(num_button_offset, (Window_size_y - 320) - num_button_offset, button_width, button_height, "4", 50);
     Button button_five(num_button_offset * 2 + button_width, (Window_size_y - 320) - num_button_offset, button_width, button_height, "5", 50);
@@ -78,28 +94,161 @@ int main()
     Button button_add(num_button_offset * 3 + button_width * 2, (Window_size_y - 530) - num_button_offset * 2, button_width, button_height, "+", 50);
     Button button_subtract(num_button_offset * 4 + button_width * 3, (Window_size_y - 530) - num_button_offset * 2, button_width, button_height, "-", 50);
 
-
+    
 
 
     while (window.isOpen())
     {
-        
 
         while (const std::optional event = window.pollEvent())
         {
+
+            static bool mouseStatusLastFrame = false;
+            bool mouseStatusCurFrame = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
+
             if (event->is<sf::Event::Closed>())
                 window.close();
             
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+            if (!mouseStatusLastFrame && mouseStatusCurFrame)
             {
-                sf::Vector2i position = sf::Mouse::getPosition();
+                sf::Vector2i position = sf::Mouse::getPosition(window);
                 sf::Mouse::setPosition(sf::Vector2i(position.x, position.y), window);
 
                 if (button_one.isButtonClicked(position)) {
-                    std::cout << "ASSSSS";
+                    firstNumber[firstNumberDigitIndex] = 1;
+                    if (firstNumberDigitIndex <= 7) {
+                        firstNumberDigitIndex++;
+                    }
+                    print_array();
+                    
                 }
+                else if (button_two.isButtonClicked(position)) {
+                    firstNumber[firstNumberDigitIndex] = 2;
+                    if (firstNumberDigitIndex <= 7) {
+                        firstNumberDigitIndex++;
+                    }
+                    print_array();
+                    
+                }
+                else if (button_three.isButtonClicked(position)) {
+                    firstNumber[firstNumberDigitIndex] = 3;
+                    if (firstNumberDigitIndex <= 7) {
+                        firstNumberDigitIndex++;
+                    }
+                    print_array();
+                    
+                }
+                else if (button_four.isButtonClicked(position)) {
+                    firstNumber[firstNumberDigitIndex] = 4;
+                    if (firstNumberDigitIndex <= 7) {
+                        firstNumberDigitIndex++;
+                    }
+                    print_array();
+                    
+                }
+                else if (button_five.isButtonClicked(position)) {
+                    firstNumber[firstNumberDigitIndex] = 5;
+                    if (firstNumberDigitIndex <= 7) {
+                        firstNumberDigitIndex++;
+                    }
+                    print_array();
+                    
+                }
+                else if (button_six.isButtonClicked(position)) {
+                    firstNumber[firstNumberDigitIndex] = 6;
+                    if (firstNumberDigitIndex <= 7) {
+                        firstNumberDigitIndex++;
+                    }
+                    print_array();
+                    
+                }
+                else if (button_seven.isButtonClicked(position)) {
+                    firstNumber[firstNumberDigitIndex] = 7;
+                    if (firstNumberDigitIndex <= 7) {
+                        firstNumberDigitIndex++;
+                    }
+                    print_array();
+                    
+                }
+                else if (button_eight.isButtonClicked(position)) {
+                    firstNumber[firstNumberDigitIndex] = 8;
+                    if (firstNumberDigitIndex <= 7) {
+                        firstNumberDigitIndex++;
+                    }
+                    print_array();
+                    
+                }
+                else if (button_nine.isButtonClicked(position)) {
+                    firstNumber[firstNumberDigitIndex] = 9;
+                    if (firstNumberDigitIndex <= 7) {
+                        firstNumberDigitIndex++;
+                    }
+                    print_array();
+                    
+                }
+                else if (button_decimal.isButtonClicked(position)) {
+                    if (firstNumDecFlag == false) {
+                        firstNumber[firstNumberDigitIndex] = -1;
+                        if (firstNumberDigitIndex <= 7) {
+                            firstNumberDigitIndex++;
+                        }
+                    }
+                    firstNumDecFlag = true;
+                    print_array();
+                    
+                }
+                else if (button_equal.isButtonClicked(position)) {
+
+                    if      ((firstNumber[7] == -2) && (firstNumber[6] == -2) && (firstNumber[5] == -2) && (firstNumber[4] == -2) && (firstNumber[3] == -2) && (firstNumber[2] == -2) && (firstNumber[1] == -2) && (firstNumber[0] != -2)) {
+                        // 1
+                        outputNumber = (firstNumber[0] * 1);
+                    }
+                    else if ((firstNumber[7] == -2) && (firstNumber[6] == -2) && (firstNumber[5] == -2) && (firstNumber[4] == -2) && (firstNumber[3] == -2) && (firstNumber[2] == -2) && (firstNumber[1] != -2) && (firstNumber[0] != -2)) {
+                        // 1 + 10
+                        outputNumber =  (firstNumber[1] * 1) + (firstNumber[0] * 10);
+                    }
+                    else if ((firstNumber[7] == -2) && (firstNumber[6] == -2) && (firstNumber[5] == -2) && (firstNumber[4] == -2) && (firstNumber[3] == -2) && (firstNumber[2] != -2) && (firstNumber[1] != -2) && (firstNumber[0] != -2)) {
+                        // 1 + 10 + 100
+                        outputNumber = (firstNumber[2] * 1) + (firstNumber[1] * 10) + (firstNumber[0] * 100);
+                    }
+                    else if ((firstNumber[7] == -2) && (firstNumber[6] == -2) && (firstNumber[5] == -2) && (firstNumber[4] == -2) && (firstNumber[3] != -2) && (firstNumber[2] != -2) && (firstNumber[1] != -2) && (firstNumber[0] != -2)) {
+                        // 1 + 10 + 100 + 1000
+                        outputNumber = (firstNumber[3] * 1) + (firstNumber[2] * 10) + (firstNumber[1] * 100) + (firstNumber[0] * 1000);
+                    }
+                    else if ((firstNumber[7] == -2) && (firstNumber[6] == -2) && (firstNumber[5] == -2) && (firstNumber[4] != -2) && (firstNumber[3] != -2) && (firstNumber[2] != -2) && (firstNumber[1] != -2) && (firstNumber[0] != -2)) {
+                        // 1 + 10 + 100 + 1,000 + 10,000
+                        outputNumber = (firstNumber[4] * 1) + (firstNumber[3] * 10) + (firstNumber[2] * 100) + (firstNumber[1] * 1000) + (firstNumber[0] * 10000);
+                    }
+                    else if ((firstNumber[7] == -2) && (firstNumber[6] == -2) && (firstNumber[5] != -2) && (firstNumber[4] != -2) && (firstNumber[3] != -2) && (firstNumber[2] != -2) && (firstNumber[1] != -2) && (firstNumber[0] != -2)) {
+                        // 1 + 10 + 100 + 1,000 + 10,000 + 100,000
+                        outputNumber = (firstNumber[5] * 1) + (firstNumber[4] * 10) + (firstNumber[3] * 100) + (firstNumber[2] * 1000) + (firstNumber[1] * 10000) + (firstNumber[0] * 100000);
+                    }
+                    else if ((firstNumber[7] == -2) && (firstNumber[6] != -2) && (firstNumber[5] != -2) && (firstNumber[4] != -2) && (firstNumber[3] != -2) && (firstNumber[2] != -2) && (firstNumber[1] != -2) && (firstNumber[0] != -2)) {
+                        // 1 + 10 + 100 + 1,000 + 10,000 + 100,000 + 1,000,000
+                        outputNumber = (firstNumber[6] * 1) + (firstNumber[5] * 10) + (firstNumber[4] * 100) + (firstNumber[3] * 1000) + (firstNumber[2] * 10000) + (firstNumber[1] * 100000) + (firstNumber[0] * 1000000);
+                    }
+                    else if ((firstNumber[7] != -2) && (firstNumber[6] != -2) && (firstNumber[5] != -2) && (firstNumber[4] != -2) && (firstNumber[3] != -2) && (firstNumber[2] != -2) && (firstNumber[1] != -2) && (firstNumber[0] != -2)) {
+                        // 1 + 10 + 100 + 1,000 + 10,000 + 100,000 + 1,000,000 + 10,000,000
+                        outputNumber = (firstNumber[7] * 1) + (firstNumber[6] * 10) + (firstNumber[5] * 100) + (firstNumber[4] * 1000) + (firstNumber[3] * 10000) + (firstNumber[2] * 100000) + (firstNumber[1] * 1000000) + (firstNumber[0] * 10000000);
+                    }
+
+
+                    std::cout << outputNumber << "\n";
+                }
+                else if (button_clear.isButtonClicked(position)) {
+                    for (size_t i = 0; i < 8; i++)
+                    {
+                        firstNumber[i] = -2;
+                    }
+                    firstNumberDigitIndex = 0;
+                    outputNumber = 0.0;
+                    print_array();
+                }
+               
             }
 
+
+            mouseStatusLastFrame = mouseStatusCurFrame;
         }
 
         window.clear();
@@ -122,11 +271,8 @@ int main()
         button_add.drawButton(window);
         button_subtract.drawButton(window);
         button_equal.drawButton(window);
+        button_clear.drawButton(window);
         window.draw(output_background);
-
-        double testy = 0.0;
-        std::cout << testy << "\n";
-
 
         window.display();
     }
@@ -136,8 +282,9 @@ int main()
 
 double calculate() {
 
-    double result = 0.0;
 
-    return result;
+    return outputNumber;
 }
+
+
 
